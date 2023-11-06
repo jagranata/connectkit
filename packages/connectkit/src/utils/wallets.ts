@@ -139,3 +139,13 @@ export const isZerion = () => {
       ethereum?.providers.find((provider) => provider.isZerion))
   );
 };
+
+export const isRoam = () => {
+  if (typeof window === 'undefined') return false;
+  const { ethereum } = window;
+  return !!(
+    ethereum?.isRoam ||
+    (ethereum?.providers &&
+      ethereum?.providers.find((provider) => provider.isRoam))
+  );
+};
