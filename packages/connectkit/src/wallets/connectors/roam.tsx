@@ -1,6 +1,7 @@
 import { WalletProps } from '../wallet';
 
-import { isRoam } from '../../utils';
+import { isAndroid } from '../../utils';
+import { isRoam } from '../../utils/wallets';
 import Logos from '../../assets/logos';
 
 export const roam = (): WalletProps => {
@@ -11,18 +12,20 @@ export const roam = (): WalletProps => {
     name: 'Roam',
     logos: {
       default: <Logos.Roam />,
-      transparent: <Logos.Roam />,
-      appIcon: <Logos.Roam />,
-      connectorButton: <Logos.Roam />,
     },
-    logoBackground: '#8697FF',  
+    logoBackground: '#FFFFFF',
     scannable: false,
     downloadUrls: {
       download:
-        'https://apps.apple.com/us/app/dawn-ethereum-wallet/id1673143782',  // FIXME
-      website: 'https://www.roam.xyz/',
-      ios: 'https://apps.apple.com/us/app/dawn-ethereum-wallet/id1673143782',  // FIXME
+        'https://roam.xyz/',
+      website: 'https://roam.xyz/',
+      ios: 'https://roam.xyz/download',
     },
-    installed: isInstalled,
+    installed: Boolean(isInstalled),
+    createUri: (uri: string) => {
+      return isAndroid()
+        ? uri
+        : `roam://wc.roam.xyz?uri=${encodeURIComponent(uri)}`;
+    },
   };
 };
